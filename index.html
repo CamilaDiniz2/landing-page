@@ -5,28 +5,119 @@
   <title>Document</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <style type="text/css">
+    .gamaModalOverlay{
+      background-color: rgba(0, 0, 0, 0.062);
+
+      width: 100%;
+      height: 100%;
+
+      position: fixed;
+      top: 0;
+
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .gamaModal{
+      background-color: #003;
+      opacity: 1.0;
+
+      width: 500px;
+      height: 500px;
+
+      position: relative;
+      left: 0px;
+      right: 0px;
+      margin: 0 auto;
+      top: 50%; 
+     
+      -webkit-transform:translateY(-50%);
+      -moz-transform:translateY(-50%);
+      -ms-transform:translateY(-50%);
+      -o-transform:translateY(-50%);
+      transform:translateY(-50%);
+
+    }
+
+    .gamaModal img{
+      width: 500px;
+      height: 500px;
+    }
+
+    .gamaCloseModal{
+      color: rgba(0, 0, 51, 0.616);
+      
+      position: absolute;
+      top: -12px;
+      right: -12px;
+    
+      cursor: pointer;
+    }
+
+    .gamaCloseModal:hover{
+      background-color: #c3c;
+      border: 0.5px solid #c3c;
+      border-radius: 50%;
+    }
+
+    .gamaModalOverlay.active{
+      opacity: 1.0;
+      visibility: visible;
+      transition:  800ms;
+    }
+  </style>
 </head>
+
 <body>
 
   <!-- 
-        =============================
-                MODALS
-        =============================
-      -->
+=============================
+               Pop-up
+=============================
+-->
 
-      <div class="modal-overlay">
-        <div class="modal">
-          <img 
-            src="https://aprendendodosofa.com.br/wp-content/uploads/2020/07/illuestra.png" 
-            alt="Pessoa sentada no sofá">
-          <a class="close-modal">
-            <i class="material-icons">close</i>
-          </a>
-        </div>
-      </div>
+<div class="gamaModalOverlay">
+  <div class="gamaModal">
+    <a href="https://www.youtube.com/watch?v=Qt0JJl8RU0c&feature=youtu.be">
+      <img 
+        src="pop-up-image.png" 
+        alt="Live do Aprendendo do Sofá"
+      />
+    </a>
+    <a class="gamaCloseModal">
+      <i class="material-icons md-18 closePopUp">cancel</i>
+    </a>
+  </div>
+</div>
+
+<script>
+  const showModal = document.querySelector('.gamaModalOverlay');
+
+  var w = screen.width;
+  var h = screen.height;
+  var count = 0;
+  var maxCount = 1;
+
+
+  window.addEventListener('load', (event) => {
+    setInterval(function() {
+      window.addEventListener ('mouseout', function(e){
+        if ((e.x < 0 || e.x > w-300 ||  e.y < 0 || e.y > h) && count < maxCount){
+          showModal.classList.add('active')
+          count += 1
+        }
+      })
+    }, 3000)  
+  });
   
+  document.querySelector('.gamaCloseModal')
+    .addEventListener('click', function(){
+      showModal.classList.remove('active')
+    }
+  )
+</script>      
 
-  <script src="main.js"></script>
+  
 </body>
 </html>
